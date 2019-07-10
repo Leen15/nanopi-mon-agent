@@ -1,0 +1,15 @@
+{
+  "name": "nanopi-mon-agent",
+  "version": "0.0.1",
+  "description": "Monitoring agent for nanopi",
+  "author": "Luca Mattivi <luca@smartdomotik.com>",
+  "main": "agent.js",
+  "scripts": {
+    "start": "node agent.js"
+  },
+  "dependencies": {
+    "getmac": "^1.4.6",
+    "node-cron": "^2.0.3",
+    "request": "^2.88.0"
+  }
+}
