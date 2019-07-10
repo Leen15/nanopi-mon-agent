@@ -10,7 +10,7 @@ it reads:
 - load
 - temperature
 
-It works in combination with the nanopi-mon-server.
+It works in combination with the [nanopi-mon-server](https://github.com/Leen15/nanopi-mon-server).
 
 This repo has two dockerfiles:    
 `Dockerfile`: Default dockerfile for run the agent on any x64 architecture. Keep attention, no temperature support.
@@ -19,5 +19,5 @@ This repo has two dockerfiles:
 ## Environment Variables  
 
 You have to set these environment variables:  
-`SERVER_URL`: nanopin-mon-server URL, in the format http://nanopi.mon-server.url:8080
+`SERVER_URL`: nanopin-mon-server URL, in the format http://nanopi.mon-server.url:8080   
 `AGENT_INTERVAL`: cron setting for read data and send to the server. The format is `*/10 * * * * *` (in this case it runs every 10 seconds)
