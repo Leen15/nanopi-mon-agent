@@ -2,10 +2,13 @@ let cron = require('node-cron');
 let fs = require('fs');
 let mac = require('getmac');
 var request = require('request');
+var os = require( 'os' );
+var networkInterfaces = os.networkInterfaces( );
 
 let SERVER_URL = process.env.SERVER_URL;
 let AGENT_INTERVAL = process.env.AGENT_INTERVAL || '*/5 * * * * *';
 let ETH_INTERFACE = process.env.ETH_INTERFACE || 'eth0';
+let VPN_INTERFACE = process.env.VPN_INTERFACE || ETH_INTERFACE;
 let mac_address = "";
 
 mac.getMac({iface: ETH_INTERFACE},function(err, macAddress){
@@ -16,20 +19,22 @@ mac.getMac({iface: ETH_INTERFACE},function(err, macAddress){
 cron.schedule(AGENT_INTERVAL, () => {
   //console.log('running a task every X seconds');
 
-  let uptime = fs.readFileSync('/proc/uptime', 'utf8');
-  let uptime_array = uptime.split(" ");
-
-  let loadavg = fs.readFileSync('/proc/loadavg', 'utf8');
-  let loadavg_array = loadavg.split(" ");
+  let uptime = fs.readFileSync('/proc/uptime', 'utf8').split(" ")[0];
+  let loadavg = fs.readFileSync('/proc/loadavg', 'utf8').split(" ")[0];
 
   let temp = 0;
   if (fs.existsSync('/sys/devices/virtual/thermal/thermal_zone0/temp')) {
-   temp = fs.readFileSync('/sys/devices/virtual/thermal/thermal_zone0/temp', 'utf8');
-   temp_array = temp.split("\n");
-   temp = parseInt(temp_array[0]) / 1000;
+   temp = fs.readFileSync('/sys/devices/virtual/thermal/thermal_zone0/temp', 'utf8').split("\n")[0];
+   temp = parseInt(temp) / 1000;
   }
 
-  var propertiesObject = { mac: mac_address, uptime: uptime_array[0], load: loadavg_array[0], temperature: temp };
+  let hostname = fs.readFileSync('/etc/hostname', 'utf8').split("\n")[0];
+ß
+  let local_ip = networkInterfaces[ETH_INTERFACE][0]['address'];
+  let vpn_ip = networkInterfaces[VPN_INTERFACE][0]['address'];
+
+  var propertiesObject = { mac: mac_address, uptime: uptime, load: loadavg,
+    temperature: temp, hostname: hostname, local_ip: local_ip, vpn_ip: vpn_ip };
 
   let url = SERVER_URL + "/save-data";
 
