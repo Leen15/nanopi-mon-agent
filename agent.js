@@ -29,7 +29,7 @@ cron.schedule(AGENT_INTERVAL, () => {
   }
 
   let hostname = fs.readFileSync('/etc/hostname', 'utf8').split("\n")[0];
-ß
+
   let local_ip = networkInterfaces[ETH_INTERFACE][0]['address'];
   let vpn_ip = networkInterfaces[VPN_INTERFACE][0]['address'];
 
