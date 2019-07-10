@@ -21,3 +21,4 @@ This repo has two dockerfiles:
 You have to set these environment variables:  
 `SERVER_URL`: nanopin-mon-server URL, in the format http://nanopi.mon-server.url:8080   
 `AGENT_INTERVAL`: cron setting for read data and send to the server. The format is `*/10 * * * * *` (in this case it runs every 10 seconds)
+`ETH_INTERFACE`: ethernet interface name for check the mac address. Default value set to `eth0`. You have to pass `--network=host` for detect the right mac address.
