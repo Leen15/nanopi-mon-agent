@@ -5,7 +5,7 @@
 
 A nodejs agent for read hardware info about aarch64 NanoPI boards (NEO2 and NEO-Plus-2 100% tested).  
 it reads:
-- cube_mac_address
+- mac_address
 - uptime
 - load
 - temperature
