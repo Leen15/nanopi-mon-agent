@@ -24,8 +24,8 @@ cron.schedule(AGENT_INTERVAL, () => {
   let temp = 0;
   if (fs.existsSync('/sys/devices/virtual/thermal/thermal_zone0/temp')) {
    temp = fs.readFileSync('/sys/devices/virtual/thermal/thermal_zone0/temp', 'utf8');
-   temp_array = loadavg.split("\n");
-   temp = temp_array[0] / 1000;
+   temp_array = temp.split("\n");
+   temp = parseInt(temp_array[0]) / 1000;
   }
 
   var propertiesObject = { mac: mac_address, uptime: uptime_array[0], load: loadavg_array[0], temperature: temp };
