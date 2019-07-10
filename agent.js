@@ -8,7 +8,7 @@ let AGENT_INTERVAL = process.env.AGENT_INTERVAL || '*/5 * * * * *';
 let ETH_INTERFACE = process.env.ETH_INTERFACE || 'eth0';
 let mac_address = "";
 
-mac.getMac({iface: ETH_INTERFACE}(function(err, macAddress){
+mac.getMac({iface: ETH_INTERFACE},function(err, macAddress){
     if (err)  throw err
     mac_address = macAddress.replace(/:/g, '');
 })
